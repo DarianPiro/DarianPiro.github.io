@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Adressbook</title>
+  <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<body>
+  
+  <nav class="box top">
+    <ul class="navbar">
+      <li><a href="#" id="contacts">Contacts</a></li>
+      <li><a href="#" id="add-contact" title="add">Add New Contact</a></li>
+      <li class="push">
+        <form>    
+          <input id="searchInput" type="text" placeholder="Search">
+        </form>
+      </li>
+    </ul>
+  </nav>
+
+  <div id="adress-form" class="adress-form">
+    <div class="adress-form-content">
+      <span class="close" >&times;</span>
+      <form id="form" name="contact" action="">
+        <div class="input-box">
+          <input type="text" name="name" id="name" minlength="3" class="text-input" placeholder="Name" required/>
+          <input type="text" name="surname" id="surname" minlength="3" class="text-input" placeholder="Surn¡ame" required/>
+          <input type="tel" name="phoneNumber" id="phoneNumber" class="text-input" placeholder="Phone Number"/>
+          <input type="email" name="email" id="email" class="text-input" placeholder="Email"/>
+          <input type="text" name="street" id="street" class="text-input" placeholder="Street"/>
+          <input type="text" name="zipCode" id="zipCode" class="text-input" placeholder="Zip Code"/>
+          <input type="text" name="city" id="city" class="text-input" placeholder="City"/>
+        </div>
+        <input type="submit" name="submit" class="button" id="submit_btn" value="Submit" />
+      </form>
+      <div id="success"></div>
+    </div>
+  </div>
+
+  <div class="box bottom main"> 
+    <ul id="list"> 
+    </ul>
+  </div>   
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
