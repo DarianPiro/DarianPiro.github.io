@@ -9,9 +9,9 @@ let contacts = [
 		zipCode: '78628',
 		city: 'Rottweil'
 	},
-	{ 
-		name: 'Darian',
-		surname: 'Piro',
+	{
+		name: 'Florence',
+		surname: 'Jones',
 		phoneNumber: '030905884',
 		email: 'random@gmail.com',
 		street: 'Beispielstr. 9',
@@ -19,10 +19,10 @@ let contacts = [
 		city: 'Berlin'
 	},
 	{
-		name: 'Cassendre',
+		name: 'Cathrine',
 		surname: '',
 		phoneNumber: '024188888',
-		email: 'Cassendre89@gmail.net',
+		email: 'Cathrine89@gmail.net',
 		street: 'Musterstr. 6',
 		zipCode: '37293',
 		city: 'Herleshausen'
@@ -163,11 +163,11 @@ $(".bottom").on( "click", ".delete", function() {
 	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
 	contacts.splice(personId, 1);
 	$('#list').html(nameList());
+	$('.text-input').css("background-color", "transparent");
+	$('#form input').not(':submit').val('')
 	$('.back').hide()
 	$('#profile').hide();
 	$('.profile-edit').hide();
-	$('.text-input').css("background-color", "transparent");
-	$('#form input').not(':submit').val('')
 	$('.contacts-title').show()
 	$('.search-bar').show();
 	$('#adress-list').slideToggle( "fast" )
