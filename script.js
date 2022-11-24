@@ -42,8 +42,8 @@ let loadNames = function(){
 	if (contacts.length == 0) $('#list').html('<p class="center">Adressbook empty</p>'); 
 		else{
 			let printName = function(personId) {
-				if (personId.surname === '' || personId.surname === undefined) return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name}</a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></li><hr class="small-line"></div>`;
-			else return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} ${personId.surname} </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></div></li><hr class="small-line"></div>`;
+				if (personId.surname === '' || personId.surname === undefined) return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></li><hr class="small-line"></div>`;
+			else return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} ${personId.surname}  </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></div></li><hr class="small-line"></div>`;
 			};
 			let nameList = [];
 			contacts.sort((a,b) => a.name.localeCompare(b.name)).forEach(el => nameList.push(printName(el)));
