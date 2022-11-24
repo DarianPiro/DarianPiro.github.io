@@ -38,16 +38,17 @@ let contacts = [
 	},
 ];
 
-let nameList = function(){
-	let printName = function(personId) {
-		if (personId.surname === '' || personId.surname === undefined) return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name}</a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></li><hr class="small-line"></div>`;
-		else return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} ${personId.surname} </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></div></li><hr class="small-line"></div>`;
-	};
-	let nameList = [];
-	contacts.sort((a,b) => a.name.localeCompare(b.name));
-	contacts.forEach(el => nameList.push(printName(el)));
-	if (contacts.length == 0) return '<p class="center">Adressbook empty</p>'
-	else return nameList.join('');
+let loadNames = function(){
+	if (contacts.length == 0) $('#list').html('<p class="center">Adressbook empty</p>'); 
+		else{
+			let printName = function(personId) {
+				if (personId.surname === '' || personId.surname === undefined) return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name}</a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></li><hr class="small-line"></div>`;
+			else return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} ${personId.surname} </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></div></li><hr class="small-line"></div>`;
+			};
+			let nameList = [];
+			contacts.sort((a,b) => a.name.localeCompare(b.name)).forEach(el => nameList.push(printName(el)));
+			$('#list').html(nameList.join(''));
+		}
 };
 
 let fillForm = function(a){
@@ -61,9 +62,21 @@ let fillForm = function(a){
 	$('#city').val(contacts[personId].city);
 }
 
-$('#list').html(nameList());
+let clearForm = function() {
+	$('#form input').not(':submit').val('');
+	$('.text-input').css("background-color", "transparent");
+}
 
-// ------ Search/Filter code inspired by this https://www.w3schools.com/jquery/jquery_filters.asp -------
+let readonlyOn = () => $('#form input').attr('readonly', true);
+
+let readonlyOff = function() {
+	$('#form input').attr('readonly', false);
+	$('.text-input').css("background-color", "#EAEBEA");
+}
+
+loadNames();
+
+// ------ Search/Filter code inspired by https://www.w3schools.com/jquery/jquery_filters.asp -------
 $('#searchInput').on('keyup', function() {
   let input = $(this).val().toUpperCase();
   $("#list div").filter(function() {
@@ -72,49 +85,33 @@ $('#searchInput').on('keyup', function() {
 });
 
 $(".top").on( "click", ".back", function() {
-	$('.back').hide()
-	$('#profile').hide();
-	$('.profile-edit').hide();
-	$('#save-contact').hide()
-	$('.text-input').css("background-color", "transparent");
-	$('#form input').not(':submit').val('')
-	$('#form input').attr('readonly', false);
-	$('.contacts-title').show()
-	$('.search-bar').show();
-	$('#adress-list').slideToggle( "fast" )
-	$('#add-contact').show();
+	$('.back, #profile, .profile-edit, #save-contact').hide();
+	$('.contacts-title, .search-bar, #add-contact').show();
+	$('#adress-list').slideToggle("fast");
+	readonlyOn();
+	clearForm();
 });
 
 $(".main").on( "click", ".name-link", function() {
 	fillForm(this)
-	$('#form input').attr('readonly', true);
-	$('.contacts-title').hide();
-	$('.search-bar').hide();
-	$('#adress-list').hide();
-	$('#add-contact').hide();
-	$('.back').show();
-	$('#profile').slideToggle( "slow" )
-	$('.profile-edit').show();
+	$('.contacts-title, .search-bar, #adress-list, #add-contact').hide();
+	$('.back, .profile-edit').show();
+	$('#profile').show('slow');
+	readonlyOn();
 });
 
 $(".main").on( "click", ".edit", function() {
 	fillForm(this)
-	$('#form input').attr('readonly', false);
-	$('.text-input').css("background-color", "#EAEBEA");
-	$('.contacts-title').hide();
-	$('.search-bar').hide();
-	$('#adress-list').hide();
-	$('#add-contact').hide();
-	$('.back').show();
-	$('#profile').show('slow')
-	$('#save-contact').show()
+	$('.contacts-title, .search-bar, #adress-list, #add-contact').hide();
+	$('.back, #save-contact').show();
+	$('#profile').show('slow');
+	readonlyOff();
 });
 
 $(".main").on( "click", ".delete", function() {
 	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
 	contacts.splice(personId, 1);
-	$('#list').html(nameList());
-	$('#form input').not(':submit').val('')
+	loadNames();
 });
 
 $('.main').on('submit', function(event) {
@@ -135,48 +132,34 @@ $('.main').on('submit', function(event) {
 	});
 	contacts.push(newContact);
 	contacts.sort((a,b) => a.name.localeCompare(b.name));
-	$('#list').html(nameList());
-	$('.back').hide()
-	$('#profile').hide();
-	$('.profile-edit').hide();
-	$('#save-contact').hide()
-	$('.text-input').css("background-color", "transparent");
-	$('#form input').not(':submit').val('')
-	$('.contacts-title').show()
-	$('.search-bar').show();
-	$('#adress-list').slideToggle( "fast" )
-	$('#add-contact').show();
+	loadNames();
+	$('.back, #profile, .profile-edit, #save-contact').hide();
+	$('.contacts-title, .search-bar, #add-contact').show();
+	$('#adress-list').slideToggle( "fast" );
+	clearForm();
 	event.preventDefault();
 });
 
 $(".bottom").on( "click", "#add-contact", function() {
-	$('#adress-list').hide();
-	$('#add-contact').hide();
-	$('.contacts-title').hide()
-	$('#profile').show('slow')
-	$('.back').show()
-	$('#save-contact').show()
-	$('.text-input').css("background-color", "#EAEBEA");
-});
-
-$(".bottom").on( "click", ".delete", function() {
-	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
-	contacts.splice(personId, 1);
-	$('#list').html(nameList());
-	$('.text-input').css("background-color", "transparent");
-	$('#form input').not(':submit').val('')
-	$('.back').hide()
-	$('#profile').hide();
-	$('.profile-edit').hide();
-	$('.contacts-title').show()
-	$('.search-bar').show();
-	$('#adress-list').slideToggle( "fast" )
-	$('#add-contact').show();
+	$('#adress-list, #add-contact, .contacts-title').hide();
+	$('.back, #save-contact').show();
+	$('#profile').show('slow');
+	clearForm();
+	readonlyOff();
 });
 
 $(".bottom").on( "click", ".edit", function() {
-		$('#form input').attr('readonly', false);
-		$('.text-input').css("background-color", "#EAEBEA");
-		$('.profile-edit').hide();
-		$('#save-contact').show()
+	$('.profile-edit').hide();
+	$('#save-contact').show();
+	readonlyOff();
+});
+
+$(".bottom").on( "click", ".delete", function() {
+	let personId = contacts.findIndex(x => x.name == $('#name').val());
+	contacts.splice(personId, 1);
+	$('.back, #profile, .profile-edit').hide();
+	$('.contacts-title, .search-bar, #add-contact').show();
+	$('#adress-list').slideToggle( "fast" );
+	loadNames();
+	clearForm();
 });
