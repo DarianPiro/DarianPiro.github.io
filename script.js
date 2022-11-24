@@ -9,7 +9,7 @@ let contacts = [
 		zipCode: '78628',
 		city: 'Rottweil'
 	},
-	{
+	{ 
 		name: 'Darian',
 		surname: 'Piro',
 		phoneNumber: '030905884',
