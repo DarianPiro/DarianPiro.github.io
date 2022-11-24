@@ -3,38 +3,38 @@ let contacts = [
 		{
 		name: 'Adam',
 		surname: 'Mustermann',
-		phoneNumber: '015777918455',
+		phoneNumber: '0741 250152',
 		email: 'adam@gmx.net',
-		street: 'Musterstr. 9',
-		zipCode: '01435',
-		city: 'Berlin'
+		street: 'Frankfurter Allee 29',
+		zipCode: '78628',
+		city: 'Rottweil'
 	},
 	{
 		name: 'Darian',
 		surname: 'Piro',
-		phoneNumber: '015777918455',
-		email: 'strayvagrant@gmail.com',
-		street: 'Beermannstrasse 8',
+		phoneNumber: '030905884',
+		email: 'random@gmail.com',
+		street: 'Beispielstr. 9',
 		zipCode: '01435',
 		city: 'Berlin'
 	},
 	{
-		name: 'Debora',
+		name: 'Cassendre',
 		surname: '',
 		phoneNumber: '024188888',
-		email: 'dheinen@gmx.net',
+		email: 'Cassendre89@gmail.net',
 		street: 'Musterstr. 6',
-		zipCode: '01435',
-		city: 'Berlin'
+		zipCode: '37293',
+		city: 'Herleshausen'
 	},
 	{
 		name: 'John',
 		surname: 'Doe',
-		phoneNumber: '024188888',
-		email: 'JD@gmail.com',
-		street: 'Musterstr. 5',
-		zipCode: '01435',
-		city: 'Berlin'
+		phoneNumber: '07044 24 66 60',
+		email: 'JD@googlemail.com',
+		street: 'Meinekestrasse 16',
+		zipCode: '49143',
+		city: 'Bissendorf'
 	},
 ];
 
@@ -44,6 +44,7 @@ let nameList = function(){
 		else return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} ${personId.surname} </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></div></li><hr class="small-line"></div>`;
 	};
 	let nameList = [];
+	contacts.sort((a,b) => a.name.localeCompare(b.name));
 	contacts.forEach(el => nameList.push(printName(el)));
 	if (contacts.length == 0) return '<p class="center">Adressbook empty</p>'
 	else return nameList.join('');
@@ -62,6 +63,7 @@ let fillForm = function(a){
 
 $('#list').html(nameList());
 
+// ------ Search/Filter code inspired by this https://www.w3schools.com/jquery/jquery_filters.asp -------
 $('#searchInput').on('keyup', function() {
   let input = $(this).val().toUpperCase();
   $("#list div").filter(function() {
@@ -112,6 +114,7 @@ $(".main").on( "click", ".delete", function() {
 	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
 	contacts.splice(personId, 1);
 	$('#list').html(nameList());
+	$('#form input').not(':submit').val('')
 });
 
 $('.main').on('submit', function(event) {
@@ -163,6 +166,8 @@ $(".bottom").on( "click", ".delete", function() {
 	$('.back').hide()
 	$('#profile').hide();
 	$('.profile-edit').hide();
+	$('.text-input').css("background-color", "transparent");
+	$('#form input').not(':submit').val('')
 	$('.contacts-title').show()
 	$('.search-bar').show();
 	$('#adress-list').slideToggle( "fast" )
@@ -175,4 +180,3 @@ $(".bottom").on( "click", ".edit", function() {
 		$('.profile-edit').hide();
 		$('#save-contact').show()
 });
-
