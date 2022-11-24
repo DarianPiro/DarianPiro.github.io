@@ -49,6 +49,17 @@ let nameList = function(){
 	else return nameList.join('');
 };
 
+let fillForm = function(a){
+	let personId = contacts.findIndex(x => x.name === $(a).attr('id'));
+	$('#name').val(contacts[personId].name);
+	$('#surname').val(contacts[personId].surname);
+	$('#phoneNumber').val(contacts[personId].phoneNumber);
+	$('#email').val(contacts[personId].email);
+	$('#street').val(contacts[personId].street);
+	$('#zipCode').val(contacts[personId].zipCode);
+	$('#city').val(contacts[personId].city);
+}
+
 $('#list').html(nameList());
 
 $('#searchInput').on('keyup', function() {
@@ -56,25 +67,6 @@ $('#searchInput').on('keyup', function() {
   $("#list div").filter(function() {
   	$(this).toggle($(this).text().toUpperCase().indexOf(input) > -1)
   });
-});
-
-$(".main").on( "click", ".delete", function() {
-	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
-	contacts.splice(personId, 1);
-	$('#list').html(nameList());
-});
-
-$(".footer").on( "click", ".delete", function() {
-	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
-	contacts.splice(personId, 1);
-	$('#list').html(nameList());
-	$('.back').hide()
-	$('#profile').hide();
-	$('.profile-edit').hide();
-	$('.contacts-title').show()
-	$('.search-bar').show();
-	$('#adress-list').show();
-	$('#add-contact').show();
 });
 
 $(".top").on( "click", ".back", function() {
@@ -87,30 +79,9 @@ $(".top").on( "click", ".back", function() {
 	$('#form input').attr('readonly', false);
 	$('.contacts-title').show()
 	$('.search-bar').show();
-	$('#adress-list').show();
+	$('#adress-list').slideToggle( "fast" )
 	$('#add-contact').show();
 });
-
-$(".bottom").on( "click", "#add-contact", function() {
-	$('#adress-list').hide();
-	$('#add-contact').hide();
-	$('.contacts-title').hide()
-	$('#profile').show();
-	$('.back').show()
-	$('#save-contact').show()
-	$('.text-input').css("background-color", "#EAEBEA");
-});
-
-let fillForm = function(a){
-	let personId = contacts.findIndex(x => x.name === $(a).attr('id'));
-	$('#name').val(contacts[personId].name);
-	$('#surname').val(contacts[personId].surname);
-	$('#phoneNumber').val(contacts[personId].phoneNumber);
-	$('#email').val(contacts[personId].email);
-	$('#street').val(contacts[personId].street);
-	$('#zipCode').val(contacts[personId].zipCode);
-	$('#city').val(contacts[personId].city);
-}
 
 $(".main").on( "click", ".name-link", function() {
 	fillForm(this)
@@ -120,7 +91,7 @@ $(".main").on( "click", ".name-link", function() {
 	$('#adress-list').hide();
 	$('#add-contact').hide();
 	$('.back').show();
-	$('#profile').show();
+	$('#profile').slideToggle( "slow" )
 	$('.profile-edit').show();
 });
 
@@ -133,15 +104,14 @@ $(".main").on( "click", ".edit", function() {
 	$('#adress-list').hide();
 	$('#add-contact').hide();
 	$('.back').show();
-	$('#profile').show();
+	$('#profile').show('slow')
 	$('#save-contact').show()
 });
 
-$(".footer").on( "click", ".edit", function() {
-		$('#form input').attr('readonly', false);
-		$('.text-input').css("background-color", "#EAEBEA");
-		$('.profile-edit').hide();
-		$('#save-contact').show()
+$(".main").on( "click", ".delete", function() {
+	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
+	contacts.splice(personId, 1);
+	$('#list').html(nameList());
 });
 
 $('.main').on('submit', function(event) {
@@ -171,8 +141,38 @@ $('.main').on('submit', function(event) {
 	$('#form input').not(':submit').val('')
 	$('.contacts-title').show()
 	$('.search-bar').show();
-	$('#adress-list').show();
+	$('#adress-list').slideToggle( "fast" )
 	$('#add-contact').show();
 	event.preventDefault();
+});
+
+$(".bottom").on( "click", "#add-contact", function() {
+	$('#adress-list').hide();
+	$('#add-contact').hide();
+	$('.contacts-title').hide()
+	$('#profile').show('slow')
+	$('.back').show()
+	$('#save-contact').show()
+	$('.text-input').css("background-color", "#EAEBEA");
+});
+
+$(".bottom").on( "click", ".delete", function() {
+	let personId = contacts.findIndex(x => x.name === $(this).attr('id'));
+	contacts.splice(personId, 1);
+	$('#list').html(nameList());
+	$('.back').hide()
+	$('#profile').hide();
+	$('.profile-edit').hide();
+	$('.contacts-title').show()
+	$('.search-bar').show();
+	$('#adress-list').slideToggle( "fast" )
+	$('#add-contact').show();
+});
+
+$(".bottom").on( "click", ".edit", function() {
+		$('#form input').attr('readonly', false);
+		$('.text-input').css("background-color", "#EAEBEA");
+		$('.profile-edit').hide();
+		$('#save-contact').show()
 });
 
