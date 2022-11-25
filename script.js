@@ -60,19 +60,19 @@ let fillForm = function(a){
 	$('#street').val(contacts[personId].street);
 	$('#zipCode').val(contacts[personId].zipCode);
 	$('#city').val(contacts[personId].city);
-}
+};
 
 let clearForm = function() {
 	$('#form input').not(':submit').val('');
 	$('.text-input').css("background-color", "transparent");
-}
+};
 
 let readonlyOn = () => $('#form input').attr('readonly', true);
 
 let readonlyOff = function() {
 	$('#form input').attr('readonly', false);
 	$('.text-input').css("background-color", "#EAEBEA");
-}
+};
 
 loadNames();
 
@@ -87,7 +87,7 @@ $('#searchInput').on('keyup', function() {
 $(".top").on( "click", ".back", function() {
 	$('.back, #profile, .profile-edit, #save-contact').hide();
 	$('.contacts-title, .search-bar, #add-contact').show();
-	$('#adress-list').slideToggle("fast");
+	$('#adress-list').show();
 	readonlyOn();
 	clearForm();
 });
@@ -135,7 +135,7 @@ $('.main').on('submit', function(event) {
 	loadNames();
 	$('.back, #profile, .profile-edit, #save-contact').hide();
 	$('.contacts-title, .search-bar, #add-contact').show();
-	$('#adress-list').slideToggle( "fast" );
+	$('#adress-list').show();
 	clearForm();
 	event.preventDefault();
 });
@@ -159,7 +159,7 @@ $(".bottom").on( "click", ".delete", function() {
 	contacts.splice(personId, 1);
 	$('.back, #profile, .profile-edit').hide();
 	$('.contacts-title, .search-bar, #add-contact').show();
-	$('#adress-list').slideToggle( "fast" );
+	$('#adress-list').show();
 	loadNames();
 	clearForm();
 });
