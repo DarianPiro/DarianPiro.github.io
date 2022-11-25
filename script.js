@@ -42,15 +42,29 @@ let loadNames = function(){
 	if (contacts.length == 0) $('#list').html('<p class="center">Adressbook empty</p>'); 
 		else{
 			let printName = function(personId) {
-				if (personId.surname === '' || personId.surname === undefined) return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></li><hr class="small-line"></div>`;
-			else return `<div class="name"><li class='container'><div><a href='#' class='name-link' id='${personId.name}'> ${personId.name} ${personId.surname}  </a></div> <div><i class="fa fa-solid fa-gear edit button" id='${personId.name}'></i> <i class="fa fa-regular fa-trash delete button" id='${personId.name}'></i></div></li><hr class="small-line"></div>`;
+				if (personId.surname === '' || personId.surname === undefined && contacts.indexOf(personId) !== contacts.length-1) {
+					let $constructed = $('#constructor1').clone().html().replace(/\${personId.name}/g, personId.name)
+					return $constructed += $('.sm-li').html();
+				}
+				else if (personId.surname === '' || personId.surname === undefined && contacts.indexOf(personId) == contacts.length-1) {
+					let $constructed = $('#constructor1').clone().html().replace(/\${personId.name}/g, personId.name)
+					return $constructed;
+				}
+				else if (contacts.indexOf(personId) !== contacts.length-1) {
+					let $constructed = $('#constructor2').clone().html().replace(/\${personId.name}/g, personId.name).replace(/\${personId.surname}/g, personId.surname)
+					return $constructed += $('.sm-li').html();
+				}
+				else {
+					let $constructed = $('#constructor2').clone().html().replace(/\${personId.name}/g, personId.name).replace(/\${personId.surname}/g, personId.surname)
+					return $constructed;
+				}
 			};
 			let nameList = [];
 			contacts.sort((a,b) => a.name.localeCompare(b.name)).forEach(el => nameList.push(printName(el)));
 			$('#list').html(nameList.join(''));
 		}
 };
-
+				
 let fillForm = function(a){
 	let personId = contacts.findIndex(x => x.name === $(a).attr('id'));
 	$('#name').val(contacts[personId].name);
@@ -76,7 +90,6 @@ let readonlyOff = function() {
 
 loadNames();
 
-// ------ Search/Filter code inspired by https://www.w3schools.com/jquery/jquery_filters.asp -------
 $('#searchInput').on('keyup', function() {
   let input = $(this).val().toUpperCase();
   $("#list div").filter(function() {
