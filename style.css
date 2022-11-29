@@ -1,26 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 body {
-    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     font-size: 1.1rem;
     color: #969A97;
+    display:flex;
+    justify-content: center;
 }
 
 .grid {
     display: grid;
-    width: 100%;
-    height: 100%;
-    grid-template-columns: 1fr minmax(490px, 30vw) 1fr;
     grid-template-rows: 1fr 4fr 1fr;
+    grid-template-areas:
+    "header"
+    "main"
+    "footer";
+    height: 100vh;
+    width: 450px;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
 
 .top { 
-    grid-area: 1 / 2 / 2 / 3; 
+    grid-area: header;
     padding-bottom: 0.5em;
     padding-left: 1em;
     padding-right: 1em;
@@ -30,7 +34,7 @@ body {
 }
 
 .main { 
-    grid-area: 2 / 2 / 3 / 3; 
+    grid-area: main; 
     padding-left: 2em;
     padding-right: 2em;
     padding-bottom: 1em;
@@ -41,7 +45,7 @@ body {
 }
 
 .bottom { 
-    grid-area: 3 / 2 / 4 / 3; 
+    grid-area: footer; 
     padding-left: 2em;
     padding-right: 2em;
     position: sticky;

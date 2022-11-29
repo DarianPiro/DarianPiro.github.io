@@ -64,7 +64,7 @@ let loadNames = function(){
 			$('#list').html(nameList.join(''));
 		}
 };
-				
+
 let fillForm = function(a){
 	let personId = contacts.findIndex(x => x.name === $(a).attr('id'));
 	$('#name').val(contacts[personId].name);
@@ -127,7 +127,7 @@ $(".main").on( "click", ".delete", function() {
 	loadNames();
 });
 
-$('.main').on('submit', function(event) {
+$('.main').on('submit', function() {
 	let newContact = {
 		name: $(this).find('#name').val(),
 		surname: $(this).find('#surname').val(),
