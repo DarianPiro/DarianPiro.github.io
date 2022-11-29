@@ -2,12 +2,16 @@
 
 body {
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
     font-size: 1.1rem;
     color: #969A97;
     display:flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
 }
 
 .grid {
@@ -17,7 +21,7 @@ body {
     "header"
     "main"
     "footer";
-    height: 100vh;
+    min-width: 300px;
     width: 450px;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
@@ -98,6 +102,7 @@ body {
     font-size: 1.1rem;
     color: #969A97;
     border-color: transparent;
+    width: 20vw;
 }
 
 .text-input:focus{
