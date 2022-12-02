@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat App</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="box header">Login</div>
+        <div class="box content">
+            <div class="text">
+                <div class="time-left"><b>Bot</b> 00:00</div>
+                <div class="answer">Hi, how are you?</div>
+            </div>
+        </div>
+        <div class="box form">
+            <form name="message" action="">
+                <input class="input" name="usermsg" type="text" id="usermsg" />
+                <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+            </form>
+        </div>
+    </div>
+    <div class="display-none">
+        <div class="text" id="outgoing">
+            <div class="message"></div>
+            <div class="time-right"></div>
+        </div>
+        <div class="text" id="incoming">
+            <div class="time-left"></div>
+            <div class="answer"></div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
